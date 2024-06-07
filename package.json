@@ -1,0 +1,16 @@
+{
+  "name": "trello-api",
+  "type": "module", 
+  "version": "1.0.0",
+  "description": "minh hieu mern stack",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "src/server.js"
+  },
+  "author": "minhhieu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
