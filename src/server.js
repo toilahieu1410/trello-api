@@ -5,24 +5,28 @@
  */
 
 import express from 'express'
-import { CONNECT_DB, GET_DB } from './config/mongodb'
+import exitHook from 'async-exit-hook'
+import { CONNECT_DB, GET_DB, CLOSE_DB } from './config/mongodb'
+import { env } from '~/config/environment'
 
 const START_SERVER = () => {
   const app = express()
 
-  const hostname = 'localhost'
-  const port = 8017
-  
+
   app.get('/', async (req, res) => {
     console.log(await GET_DB().listCollections().toArray())
     res.end('<h1>Hello World!</h1><hr>')
   })
-  
-  app.listen(port, hostname, () => {
+
+  app.listen(env.APP_PORT, env.APP_HOST, () => {
     // eslint-disable-next-line no-console
-    console.log(`Hello Trung Quan Dev, I am running at ${ hostname }:${ port }/`)
+    console.log(`Hello ${env.AUTHOR}, I am running at ${ env.APP_HOST }:${ env.APP_PORT }/`)
   })
-  
+
+  // Thực hiện các tác vụ cleanup trc khi dừng server
+  exitHook(() => {
+    CLOSE_DB()
+  })
 }
 
 // Chỉ khi kết nối với database thành công thì mới Start Server Back-end lên
