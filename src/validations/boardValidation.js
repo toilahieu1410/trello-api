@@ -1,11 +1,12 @@
+/* eslint-disable no-console */
 /**
  * Updated by trungquandev.com's author on August 17 2023
  * YouTube: https://youtube.com/@trungquandev
  * "A bit of fragrance clings to the hand that gives flowers!"
  */
-import Joi from "joi"
-import { StatusCodes } from "http-status-codes"
-import ApiError from "~/utils/ApiError"
+import Joi from 'joi'
+import { StatusCodes } from 'http-status-codes'
+import ApiError from '~/utils/ApiError'
 
 const createNew = async (req, res, next) => {
   const correctCondition = Joi.object({
@@ -26,7 +27,6 @@ const createNew = async (req, res, next) => {
     console.log(error)
     next(new ApiError(StatusCodes.UNPROCESSABLE_ENTITY, new Error(error).message))
   }
-  
 }
 
 export const boardValidation = {
