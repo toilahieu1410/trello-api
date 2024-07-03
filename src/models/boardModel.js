@@ -26,7 +26,7 @@ const BOARD_COLLECTION_SCHEMA = Joi.object({
 })
 
 const validateBeforeCreate = async (data) => {
-  return await BOARD_COLLECTION_SCHEMA.validateAsync(data, {abortEarly: false})
+  return await BOARD_COLLECTION_SCHEMA.validateAsync(data, { abortEarly: false })
 }
 
 const createNew = async (data) => {
@@ -49,9 +49,22 @@ const findOneById = async (id) => {
     throw new Error(error)
   }
 }
+
+// Query tổng hợp (aggregate) để lấy toàn bộ Columns và Cards thuộc về Board
+const getDetails = async (id) => {
+  try {
+    const result = await GET_DB().collection(BOARD_COLLECTION_NAME).findOne({
+      _id: new ObjectId(id) // id phải là 1 objectId
+    })
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 export const boardModel = {
-    BOARD_COLLECTION_NAME,
-    BOARD_COLLECTION_SCHEMA,
-    createNew,
-    findOneById
+  BOARD_COLLECTION_NAME,
+  BOARD_COLLECTION_SCHEMA,
+  createNew,
+  findOneById,
+  getDetails
 }
