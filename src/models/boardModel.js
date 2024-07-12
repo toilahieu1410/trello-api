@@ -89,7 +89,7 @@ const pushColumnOrderIds = async (column) => {
   try {
     const result = await GET_DB().collection(BOARD_COLLECTION_NAME).findOneAndUpdate(
       { _id: new ObjectId(column.boardId) },
-      { $push: { columnOrderIds: new ObjectId(column._id) }},
+      { $push: { columnOrderIds: new ObjectId(column._id) } },
       { returnDocument: 'after' }
     )
     return result.value || null
